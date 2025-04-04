@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "drivers",
+  "info": {
+    "singularName": "driver",
+    "pluralName": "drivers",
+    "displayName": "driver",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "licenseNumber": {
+      "type": "string"
+    },
+    "licenseExpireDate": {
+      "type": "date"
+    },
+    "smartCardExpireDate": {
+      "type": "date"
+    },
+    "personalCode": {
+      "type": "integer"
+    },
+    "phoneNumber": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "vehicles",
+  "info": {
+    "singularName": "vehicle",
+    "pluralName": "vehicles",
+    "displayName": "vehicle",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "mini-truck",
+        "full-truck",
+        "sedan",
+        "motorcycle",
+        "van"
+      ],
+      "required": true
+    },
+    "model": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "licensePlate": {
+      "type": "string"
+    },
+    "insurances": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::insurance.insurance",
+      "mappedBy": "vehicle"
+    },
+    "inspections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::inspection.inspection",
+      "mappedBy": "vehicle"
+    }
+  }
+}

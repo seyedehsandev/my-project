@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "insurances",
+  "info": {
+    "singularName": "insurance",
+    "pluralName": "insurances",
+    "displayName": "insurance",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "vehicle": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::vehicle.vehicle",
+      "inversedBy": "insurances"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "body",
+        "third-person"
+      ]
+    },
+    "expireDate": {
+      "type": "date",
+      "required": false
+    }
+  }
+}
