@@ -11,37 +11,59 @@
     "draftAndPublish": true
   },
   "attributes": {
+    "model": {
+      "type": "string",
+      "required": true
+    },
+    "brand": {
+      "type": "string",
+      "required": true
+    },
+    "plate": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "integer",
+      "required": true,
+      "min": 1350,
+      "max": 1410
+    },
     "type": {
       "type": "enumeration",
       "enum": [
-        "mini-truck",
-        "full-truck",
-        "sedan",
-        "motorcycle",
-        "van"
+        "ون",
+        "سواری",
+        "تریلی",
+        "کامیونت",
+        "موتور"
       ],
-      "required": true
+      "required": true,
+      "default": "کامیونت"
     },
-    "model": {
-      "type": "string"
+    "vehicleStatus": {
+      "type": "enumeration",
+      "enum": [
+        "فعال",
+        "غیر فعال",
+        "در دست تعمیر",
+        "اسقاط",
+        "در سفر"
+      ],
+      "required": true,
+      "default": "فعال"
     },
     "color": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
-    "licensePlate": {
-      "type": "string"
+    "expireInsurance": {
+      "type": "date",
+      "required": true
     },
-    "insurances": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::insurance.insurance",
-      "mappedBy": "vehicle"
-    },
-    "inspections": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::inspection.inspection",
-      "mappedBy": "vehicle"
+    "technicalInspectionExpireDate": {
+      "type": "date",
+      "required": true
     }
   }
 }

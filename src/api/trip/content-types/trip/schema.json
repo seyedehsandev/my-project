@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trips",
+  "info": {
+    "singularName": "trip",
+    "pluralName": "trips",
+    "displayName": "Trip"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "driver": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::driver.driver"
+    },
+    "vehicle": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::vehicle.vehicle"
+    },
+    "origin": {
+      "type": "string",
+      "required": true
+    },
+    "destination": {
+      "type": "string",
+      "required": true
+    },
+    "startOdometer": {
+      "type": "integer",
+      "required": true
+    },
+    "endOdometer": {
+      "type": "integer",
+      "required": true
+    },
+    "fuelType": {
+      "type": "enumeration",
+      "enum": [
+        "بنزین",
+        "دیزل"
+      ],
+      "required": false
+    },
+    "fuelRate": {
+      "type": "enumeration",
+      "enum": [
+        "دولتی",
+        "آزاد"
+      ]
+    },
+    "fuelCost": {
+      "type": "integer"
+    },
+    "mealPrice": {
+      "type": "integer"
+    },
+    "parkingCost": {
+      "type": "integer"
+    },
+    "tollCost": {
+      "type": "integer"
+    },
+    "fineCost": {
+      "type": "integer"
+    },
+    "otherCosts": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "totalCost": {
+      "type": "integer"
+    },
+    "fuelLitersAdded": {
+      "type": "integer"
+    }
+  }
+}

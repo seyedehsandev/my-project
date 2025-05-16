@@ -405,13 +405,12 @@ export interface ApiDriverDriver extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiInspectionInspection extends Struct.CollectionTypeSchema {
-  collectionName: 'inspections';
+export interface ApiTripTrip extends Struct.CollectionTypeSchema {
+  collectionName: 'trips';
   info: {
-    description: '';
-    displayName: 'inspection';
-    pluralName: 'inspections';
-    singularName: 'inspection';
+    displayName: 'Trip';
+    pluralName: 'trips';
+    singularName: 'trip';
   };
   options: {
     draftAndPublish: true;
@@ -420,50 +419,35 @@ export interface ApiInspectionInspection extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    expireDate: Schema.Attribute.Date;
+    date: Schema.Attribute.Date & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
+    destination: Schema.Attribute.String & Schema.Attribute.Required;
+    driver: Schema.Attribute.Relation<'oneToOne', 'api::driver.driver'>;
+    endOdometer: Schema.Attribute.Integer & Schema.Attribute.Required;
+    fineCost: Schema.Attribute.Integer;
+    fuelCost: Schema.Attribute.Integer;
+    fuelLitersAdded: Schema.Attribute.Integer;
+    fuelRate: Schema.Attribute.Enumeration<
+      ['\u062F\u0648\u0644\u062A\u06CC', '\u0622\u0632\u0627\u062F']
+    >;
+    fuelType: Schema.Attribute.Enumeration<
+      ['\u0628\u0646\u0632\u06CC\u0646', '\u062F\u06CC\u0632\u0644']
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::inspection.inspection'
-    > &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::trip.trip'> &
       Schema.Attribute.Private;
+    mealPrice: Schema.Attribute.Integer;
+    origin: Schema.Attribute.String & Schema.Attribute.Required;
+    otherCosts: Schema.Attribute.Integer;
+    parkingCost: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    report: Schema.Attribute.Text;
+    startOdometer: Schema.Attribute.Integer & Schema.Attribute.Required;
+    tollCost: Schema.Attribute.Integer;
+    totalCost: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    vehicle: Schema.Attribute.Relation<'manyToOne', 'api::vehicle.vehicle'>;
-  };
-}
-
-export interface ApiInsuranceInsurance extends Struct.CollectionTypeSchema {
-  collectionName: 'insurances';
-  info: {
-    description: '';
-    displayName: 'insurance';
-    pluralName: 'insurances';
-    singularName: 'insurance';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    expireDate: Schema.Attribute.Date;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::insurance.insurance'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    type: Schema.Attribute.Enumeration<['body', 'third-person']>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    vehicle: Schema.Attribute.Relation<'manyToOne', 'api::vehicle.vehicle'>;
+    vehicle: Schema.Attribute.Relation<'oneToOne', 'api::vehicle.vehicle'>;
   };
 }
 
@@ -479,34 +463,57 @@ export interface ApiVehicleVehicle extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    color: Schema.Attribute.String;
+    brand: Schema.Attribute.String & Schema.Attribute.Required;
+    color: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    inspections: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::inspection.inspection'
-    >;
-    insurances: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::insurance.insurance'
-    >;
-    licensePlate: Schema.Attribute.String;
+    expireInsurance: Schema.Attribute.Date & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::vehicle.vehicle'
     > &
       Schema.Attribute.Private;
-    model: Schema.Attribute.String;
+    model: Schema.Attribute.String & Schema.Attribute.Required;
+    plate: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    type: Schema.Attribute.Enumeration<
-      ['mini-truck', 'full-truck', 'sedan', 'motorcycle', 'van']
-    > &
+    technicalInspectionExpireDate: Schema.Attribute.Date &
       Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<
+      [
+        '\u0648\u0646',
+        '\u0633\u0648\u0627\u0631\u06CC',
+        '\u062A\u0631\u06CC\u0644\u06CC',
+        '\u06A9\u0627\u0645\u06CC\u0648\u0646\u062A',
+        '\u0645\u0648\u062A\u0648\u0631',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'\u06A9\u0627\u0645\u06CC\u0648\u0646\u062A'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    vehicleStatus: Schema.Attribute.Enumeration<
+      [
+        '\u0641\u0639\u0627\u0644',
+        '\u063A\u06CC\u0631 \u0641\u0639\u0627\u0644',
+        '\u062F\u0631 \u062F\u0633\u062A \u062A\u0639\u0645\u06CC\u0631',
+        '\u0627\u0633\u0642\u0627\u0637',
+        '\u062F\u0631 \u0633\u0641\u0631',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'\u0641\u0639\u0627\u0644'>;
+    year: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1410;
+          min: 1350;
+        },
+        number
+      >;
   };
 }
 
@@ -1020,8 +1027,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::driver.driver': ApiDriverDriver;
-      'api::inspection.inspection': ApiInspectionInspection;
-      'api::insurance.insurance': ApiInsuranceInsurance;
+      'api::trip.trip': ApiTripTrip;
       'api::vehicle.vehicle': ApiVehicleVehicle;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
